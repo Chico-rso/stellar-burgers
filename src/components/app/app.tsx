@@ -83,37 +83,37 @@ const App = () => {
               </ProtectedRoute>
             }
           />
+          {/* Маршруты для прямого перехода */}
           <Route
             path='/feed/:number'
             element={
-              <Modal title='Детали заказа' onClose={() => navigate('/feed')}>
+              <div className={styles.page}>
                 <OrderInfo />
-              </Modal>
+              </div>
             }
           />
           <Route
             path='/ingredients/:id'
             element={
-              <Modal title='Детали ингредиента' onClose={() => navigate('/')}>
+              <div className={styles.page}>
                 <IngredientDetails />
-              </Modal>
+              </div>
             }
           />
           <Route
             path='/profile/orders/:number'
             element={
-              <Modal
-                title='Детали заказа'
-                onClose={() => navigate('/profile/orders')}
-              >
-                <OrderInfo />
-              </Modal>
+              <ProtectedRoute>
+                <div className={styles.page}>
+                  <OrderInfo />
+                </div>
+              </ProtectedRoute>
             }
           />
-          {/* Маршрут ошибок */}
           <Route path='*' element={<NotFound404 />} />
         </Routes>
-        {/* Маршруты модалки с дополнительной информацией */}
+
+        {/* Маршруты модальных окон */}
         {background && (
           <Routes>
             <Route
@@ -141,12 +141,14 @@ const App = () => {
             <Route
               path='/profile/orders/:number'
               element={
-                <Modal
-                  title='Детали заказа'
-                  onClose={() => navigate('/profile/orders', { state: null })}
-                >
-                  <OrderInfo />
-                </Modal>
+                <ProtectedRoute>
+                  <Modal
+                    title='Детали заказа'
+                    onClose={() => navigate('/profile/orders', { state: null })}
+                  >
+                    <OrderInfo />
+                  </Modal>
+                </ProtectedRoute>
               }
             />
           </Routes>

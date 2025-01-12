@@ -8,7 +8,7 @@ import { selectAllIngredients } from '../../services/slices/ingredients/reducer'
 
 const maxIngredients = 6;
 
-export const OrderCard: FC<OrderCardProps> = memo(({ order }) => {
+export const OrderCard: FC<OrderCardProps> = memo(({ order, background }) => {
   const location = useLocation();
 
   const ingredients: TIngredient[] = useSelector(selectAllIngredients);
@@ -55,6 +55,7 @@ export const OrderCard: FC<OrderCardProps> = memo(({ order }) => {
       orderInfo={orderInfo}
       maxIngredients={maxIngredients}
       locationState={locationState}
+      background={background}
     />
   );
 });

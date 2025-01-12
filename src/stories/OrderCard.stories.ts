@@ -15,52 +15,31 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
+const ingredient = {
+  _id: '111',
+  name: 'Булка',
+  type: 'top',
+  proteins: 12,
+  fat: 33,
+  carbohydrates: 22,
+  calories: 33,
+  price: 123,
+  image: '',
+  image_large: '',
+  image_mobile: ''
+};
+
+const ingredient2 = {
+  ...ingredient,
+  _id: '222',
+  name: 'Начинка'
+};
+
 export const DefaultOrderCard: Story = {
   args: {
     orderInfo: {
-      ingredientsInfo: [
-        {
-          _id: '111',
-          name: 'Булка',
-          type: 'top',
-          proteins: 12,
-          fat: 33,
-          carbohydrates: 22,
-          calories: 33,
-          price: 123,
-          image: '',
-          image_large: '',
-          image_mobile: ''
-        }
-      ],
-      ingredientsToShow: [
-        {
-          _id: '111',
-          name: 'Булка',
-          type: 'top',
-          proteins: 12,
-          fat: 33,
-          carbohydrates: 22,
-          calories: 33,
-          price: 123,
-          image: '',
-          image_large: '',
-          image_mobile: ''
-        },
-        {
-          _id: '111',
-          name: 'Начинка',
-          type: 'top',
-          proteins: 12,
-          fat: 33,
-          carbohydrates: 22,
-          calories: 33,
-          price: 123,
-          image: '',
-          image_large: '',
-          image_mobile: ''
-        }
-      ],
+      ingredientsInfo: [ingredient],
+      ingredientsToShow: [ingredient, ingredient2],
       remains: 2,
       total: 2,
       date: new Date('2024-01-25'),
@@ -70,7 +49,7 @@ export const DefaultOrderCard: Story = {
       createdAt: '',
       updatedAt: '',
       number: 3,
-      ingredients: ['Булка', 'Начинка']
+      ingredients: ['111', '222']
     },
     maxIngredients: 5,
     locationState: {

@@ -11,11 +11,11 @@ import { OrderCardUIProps } from './type';
 import { OrderStatus } from '@components';
 
 export const OrderCardUI: FC<OrderCardUIProps> = memo(
-  ({ orderInfo, maxIngredients, locationState }) => (
+  ({ orderInfo, maxIngredients, locationState, background }) => (
     <Link
       to={orderInfo.number.toString()}
       relative='path'
-      state={locationState}
+      state={{ background: background || locationState }}
       className={`p-6 mb-4 mr-2 ${styles.order}`}
     >
       <div className={styles.order_info}>
