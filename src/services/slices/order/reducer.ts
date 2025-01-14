@@ -77,7 +77,7 @@ export const orderSlice = createSlice({
       })
       .addCase(fetchOrderByNumber.fulfilled, (state, action) => {
         state.isLoading = false;
-        state.orderRequest = false;
+        state.orderRequest = true;
         state.orderData = action.payload.orders[0];
       })
       .addCase(getPlacedOrders.rejected, (state, action) => {

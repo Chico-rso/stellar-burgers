@@ -14,16 +14,16 @@ export const OrderInfo: FC = () => {
   /** TODO: взять переменные orderData и ingredients из стора */
   const orderData = useSelector(selectOrderData);
   const dispatch = useDispatch();
-  const param = useParams();
+  const { number } = useParams();
   const ingredients: TIngredient[] = useSelector(selectAllIngredients);
 
-  const number = Number(param);
+  const orderNumber = number ? Number(number) : null;
 
   useEffect(() => {
-    if (!orderData) {
-      dispatch(fetchOrderByNumber(number));
+    if (!orderData && orderNumber) {
+      dispatch(fetchOrderByNumber(orderNumber));
     }
-  }, [dispatch]);
+  }, [dispatch, orderData, orderNumber]);
 
   /* Готовим данные для отображения */
   const orderInfo = useMemo(() => {

@@ -4,14 +4,14 @@ import { OrderCardProps } from './type';
 import { TIngredient } from '@utils-types';
 import { OrderCardUI } from '../ui/order-card';
 import { useSelector } from '../../services/store';
-import { selectAllIngredients } from '../../services/slices/ingredients/reducer';
 
 const maxIngredients = 6;
 
-export const OrderCard: FC<OrderCardProps> = memo(({ order, background }) => {
+export const OrderCard: FC<OrderCardProps> = memo(({ order }) => {
   const location = useLocation();
 
-  const ingredients: TIngredient[] = useSelector(selectAllIngredients);
+  /** Получаем ингредиенты из стора */
+  const ingredients = useSelector((state) => state.ingredients.ingredients);
 
   const orderInfo = useMemo(() => {
     if (!ingredients.length) return null;
@@ -28,34 +28,30 @@ export const OrderCard: FC<OrderCardProps> = memo(({ order, background }) => {
     const total = ingredientsInfo.reduce((acc, item) => acc + item.price, 0);
 
     const ingredientsToShow = ingredientsInfo.slice(0, maxIngredients);
+
     const remains =
       ingredientsInfo.length > maxIngredients
         ? ingredientsInfo.length - maxIngredients
         : 0;
 
+    const date = new Date(order.createdAt);
     return {
       ...order,
       ingredientsInfo,
       ingredientsToShow,
+      remains,
       total,
-      date: new Date(order.createdAt),
-      remains
+      date
     };
-  }, [ingredients, order]);
+  }, [order, ingredients]);
 
   if (!orderInfo) return null;
-
-  const locationState = {
-    background: location,
-    orderInfo
-  };
 
   return (
     <OrderCardUI
       orderInfo={orderInfo}
       maxIngredients={maxIngredients}
-      locationState={locationState}
-      background={background}
+      locationState={{ background: location }}
     />
   );
 });

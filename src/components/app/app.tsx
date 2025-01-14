@@ -7,6 +7,7 @@ import { useDispatch } from '../../services/store';
 import { ProtectedRoute } from '../protected-route';
 import { checkUserAuth } from '../../services/slices/auth/reducer';
 import { getIngredients } from '../../services/slices/ingredients/reducer';
+import { clearOrderData } from '../../services/slices/order/reducer';
 import {
   ConstructorPage,
   Feed,
@@ -24,10 +25,17 @@ const App = () => {
   const navigate = useNavigate();
   const background = location.state?.background;
   const dispatch = useDispatch();
+
   useEffect(() => {
     dispatch(checkUserAuth());
     dispatch(getIngredients());
   }, [dispatch]);
+
+  const handleCloseModal = (path: string) => {
+    dispatch(clearOrderData());
+    navigate(path, { state: null });
+  };
+
   return (
     <>
       <div className={styles.app}>
@@ -121,7 +129,7 @@ const App = () => {
               element={
                 <Modal
                   title='Детали заказа'
-                  onClose={() => navigate('/feed', { state: null })}
+                  onClose={() => handleCloseModal('/feed')}
                 >
                   <OrderInfo />
                 </Modal>
@@ -132,7 +140,7 @@ const App = () => {
               element={
                 <Modal
                   title='Детали ингредиента'
-                  onClose={() => navigate('/', { state: null })}
+                  onClose={() => handleCloseModal('/')}
                 >
                   <IngredientDetails />
                 </Modal>
@@ -144,7 +152,7 @@ const App = () => {
                 <ProtectedRoute>
                   <Modal
                     title='Детали заказа'
-                    onClose={() => navigate('/profile/orders', { state: null })}
+                    onClose={() => handleCloseModal('/profile/orders')}
                   >
                     <OrderInfo />
                   </Modal>
