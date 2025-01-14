@@ -1,4 +1,4 @@
-import { FC, useMemo } from 'react';
+import { FC, useMemo, useEffect } from 'react';
 import { TConstructorIngredient } from '@utils-types';
 import { BurgerConstructorUI } from '@ui';
 import { useDispatch, useSelector } from '../../services/store';
@@ -22,6 +22,10 @@ export const BurgerConstructor: FC = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { userData } = useSelector((state) => state.auth);
+
+  useEffect(() => {
+    dispatch(clearOrderData());
+  }, [dispatch]);
 
   const onOrderClick = () => {
     if (!constructorItems.bun || orderRequest) return;

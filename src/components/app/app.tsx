@@ -29,7 +29,11 @@ const App = () => {
   useEffect(() => {
     dispatch(checkUserAuth());
     dispatch(getIngredients());
-  }, [dispatch]);
+
+    if (!location.state?.background && location.state !== null) {
+      navigate(location.pathname, { replace: true, state: null });
+    }
+  }, [dispatch, location.pathname]);
 
   const handleCloseModal = (path: string) => {
     dispatch(clearOrderData());
