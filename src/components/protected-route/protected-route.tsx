@@ -14,10 +14,10 @@ export const ProtectedRoute = ({
   ifNotAuth
 }: ProtectedRouteProps) => {
   const location = useLocation();
-  const { userData, isAuthChecked } = useSelector((state) => state.auth);
+  const { userData, authChecked } = useSelector((state) => state.auth);
 
   // проверка на аутентификацию
-  if (!isAuthChecked) {
+  if (!authChecked) {
     return <Preloader />;
   }
 

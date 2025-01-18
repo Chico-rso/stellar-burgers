@@ -63,7 +63,10 @@ export const {
 
 export const selectAllIngredients = createSelector(
   [(state) => state.ingredients.ingredients],
-  (ingredients) => ingredients
+  (ingredients) =>
+    ingredients
+      .slice()
+      .sort((a: TIngredient, b: TIngredient) => a.type.localeCompare(b.type))
 );
 
 export default burgerIngredientsSlice.reducer;

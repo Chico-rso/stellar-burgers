@@ -4,8 +4,8 @@ import { AppHeader, Modal, OrderInfo, IngredientDetails } from '@components';
 import React, { useEffect } from 'react';
 import { Routes, Route, useNavigate, useLocation } from 'react-router-dom';
 import { useDispatch } from '../../services/store';
-import { ProtectedRoute } from '../protected-route';
-import { checkUserAuth } from '../../services/slices/auth/reducer';
+import { ProtectedRoute } from '@components';
+import { getUser } from '../../services/slices/auth/reducer';
 import { getIngredients } from '../../services/slices/ingredients/reducer';
 import { clearOrderData } from '../../services/slices/order/reducer';
 import {
@@ -27,13 +27,9 @@ const App = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(checkUserAuth());
+    dispatch(getUser());
     dispatch(getIngredients());
-
-    if (!location.state?.background && location.state !== null) {
-      navigate(location.pathname, { replace: true, state: null });
-    }
-  }, [dispatch, location.pathname]);
+  }, []);
 
   const handleCloseModal = (path: string) => {
     dispatch(clearOrderData());
